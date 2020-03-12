@@ -12,7 +12,7 @@ info:
     Base path: https://app.mural.co/api/v0
   version: 0.0.1
   x-logo:
-    url: "https://mural.co/static/images/brand/mural-animated-1.gif"
+    url: "https://app.mural.co/static/images/new-logo.svg"
     href: "http://mural.co"
 servers:
   - url: https://app.mural.co/api/{version}
@@ -126,4 +126,6 @@ components:
       type: apiKey
       name: Authorization
       in: header
-      description: 'Prefix the value with \"ApiKey\" to indicate the custom authorization type'
+      description: >
+        Prefix the value with \"apikey\" to indicate the custom authorization type.
+        The key can be created by a company admin by going to https://app.mural.co/

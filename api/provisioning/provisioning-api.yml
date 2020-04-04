@@ -21,7 +21,7 @@ servers:
         default: v0
 paths:
   "/provisioning/users/suspend":
-    post:
+    put:
       security:
         - apiKey: []
       tags:
@@ -50,7 +50,7 @@ paths:
           $ref: "#/components/responses/ServerError"
 
   "/provisioning/users/unsuspend":
-    post:
+    put:
       security:
         - apiKey: []
       tags:

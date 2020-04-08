@@ -1,1 +1,7 @@
-const custom_redoc_theme = {};
+const custom_redoc_theme = {
+  colors: {
+    primary: {
+      main: "#999999",
+    },
+  },
+};

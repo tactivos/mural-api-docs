@@ -1,11 +1,10 @@
 openapi: "3.0.2"
 info:
-  title: MURAL Provisioning API
+  title: MURAL Deprovisioning API
   description: >-
     The Mural's **Provisioning API** is organized around **REST**. 
 
     The API uses HTTP response codes to indicate API errors. The API supports cross-origin resource sharing. 
-
 
     **JSON** is returned by all API responses, including errors.
 
@@ -22,14 +21,14 @@ servers:
         default: v0
 paths:
   "/provisioning/users/suspend":
-    post:
+    put:
       security:
         - apiKey: []
       tags:
-        - provisioning
-      summary: Suspends a user account
+        - Deprovisioning
+      summary: Suspend a user account
       description: >-
-        Suspend a user account based on the user email address
+        Suspend a user account based on the user's email address
       operationId: suspendUser
       requestBody:
         required: true
@@ -51,14 +50,14 @@ paths:
           $ref: "#/components/responses/ServerError"
 
   "/provisioning/users/unsuspend":
-    post:
+    put:
       security:
         - apiKey: []
       tags:
-        - provisioning
-      summary: Suspends a user account
+        - Deprovisioning
+      summary: Unsuspend a user account
       description: >-
-        Suspend a user account based on the user email address
+        Unsuspend a user account based on the user's email address
       operationId: unsuspendUser
       requestBody:
         required: true

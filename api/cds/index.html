@@ -21,9 +21,23 @@
     </style>
   </head>
   <body>
-    <redoc
+    <div id="redoc-container"></div>
+    <!-- <redoc
       spec-url="https://raw.githubusercontent.com/tactivos/mural-api-docs/master/api/cds/cds-api.yml"
-    ></redoc>
+      theme="{ colors: { primary: { main: '#fafafa' } } }"
+      color-primary-main="#fafafa"
+    ></redoc> -->
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+    <script src="../../common/redoc-theme.js"></script>
   </body>
+  <script>
+    Redoc.init(
+      "https://raw.githubusercontent.com/tactivos/mural-api-docs/master/api/cds/cds-api.yml",
+      {
+        scrollYOffset: 50,
+        theme: custom_redoc_theme,
+      },
+      document.getElementById("redoc-container")
+    );
+  </script>
 </html>

@@ -1,0 +1,525 @@
+openapi: "3.0.0"
+info:
+  title: Mural User Activity API
+  description: >-
+    The Mural's **User Activity API** is organized around **REST**. 
+  
+    The API uses HTTP response codes to indicate API errors. The API supports cross-origin resource sharing. 
+    
+    
+    **JSON** is returned by all API responses, including errors.
+
+
+    All calls to this API's methods require an API key that will be provided by Mural's IT team. The key must be included as a **x-api-key** header.<br/><br/>
+    The API key is issue to a customer and allows access to only said company data.<br/> <b>Customers are responsible to ensure the security of the API key.</b> 
+  version: 0.0.1
+  x-logo:
+    url: 'https://mural.co/static/images/brand/mural-animated-1.gif'
+    href: 'http://mural.co'
+servers:
+  - url: https://cds.mural.co
+paths:
+  '/users-activity-requests':
+    parameters:
+      - $ref: '#/components/parameters/key-header'
+    post:
+      security:
+        - apiKey: []
+      tags:
+        - users
+      summary: Creates a request to retrieve users activity in a period of time
+      description: >-
+        Creates an async task to retrieve all the activity of a group of users 
+        in a period of time. 
+        <br/>
+        Requests are limited to a period of **30 days**.
+        <br/>
+        
+        Results will be available for download as a .csv file once the task is completed for a period of **1 hour, then the download link will expire**.
+        
+        <br/>
+        <br/>
+        
+        <details>
+          <summary>
+            <b>Output file format description</b>
+          </summary>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>event_source</td>
+                <td>Source of the event either BACKEND or FRONTEND.</td>
+              </tr>
+              <tr>
+                <td>event_username</td>
+                <td>The unique identifier for the user that performed the action.</td>
+              </tr>
+              <tr>
+                <td>event_version</td>
+                <td>The version of the event.</td>
+              </tr>
+              <tr>
+                <td>event_original_timestamp</td>
+                <td>UTC timestamp of the moment when the action was performed.</td>
+              </tr>
+              <tr>
+                <td>event_mural_id</td>
+                <td>Unique identifier of the mural where the action was performed.</td>
+              </tr>
+              <tr>
+                <td>event_workspace_id</td>
+                <td>Unique identifier of the workspace where the action was performed.</td>
+              </tr>
+              <tr>
+                <td>event_device</td>
+                <td>Device that was the source of the event.</td>
+              </tr>
+              <tr>
+                <td>event_action</td>
+                <td>Action performed see below for a list of possible actions.</td>
+              </tr>
+              <tr>
+                <td>event_ip</td>
+                <td>IP of the device from where the action was performed.</td>
+              </tr>
+              <tr>
+                <td>event_room_id</td>
+                <td>The unique identifier of the room where the action was performed.</td>
+              </tr>
+              <tr>
+                <td>workspace_name</td>
+                <td>Name of the workspace where the action was performed.</td>
+              </tr>
+              <tr>
+                <td>workspace_company</td>
+                <td>Company.</td>
+              </tr>
+              <tr>
+                <td>workspace_owner_id</td>
+                <td>Unique identifier of the user that owns the workspace.</td>
+              </tr>
+              <tr>
+                <td>room_title</td>
+                <td>Room title.</td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        
+        <br/>
+        
+        <details>
+          <summary>
+            <b>List of available actions.</b>
+          </summary>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>ABORT_VOTING_SESSION</td><td>Voting session has been canceled by the user </td></tr>
+              <tr><td>ADD_BOARD_TO_ROOM</td><td>Mural moved to a given room </td></tr>
+              <tr><td>ADD_FRAMEWORK</td><td>User added a framework widget to a mural </td></tr>
+              <tr><td>ADD_MEMBER</td><td>User has been added to workspace, room and/or mural</td></tr>
+              <tr><td>APPEND_REFRESH_TOKEN</td><td>User refresh token has been regenerated </td></tr>
+              <tr><td>ARCHIVE_BOARD</td><td>User archived a mural</td></tr>
+              <tr><td>CHAT</td><td>User sent a chat message on a mural </td></tr>
+              <tr><td>CREATE</td><td>User created a widget </td></tr>
+              <tr><td>CREATE_ACCOUNT</td><td>Workspace has been created</td></tr>
+              <tr><td>CREATE_BOARD</td><td>User created a new mural</td></tr>
+              <tr><td>CREATE_ROOM</td><td>Room has been created</td></tr>
+              <tr><td>CREATE_TEMPLATE</td><td>Template has been created</td></tr>
+              <tr><td>DELETE</td><td>Widget has been removed from a mural </td></tr>
+              <tr><td>DELETE_ACCOUNT</td><td>User account has been deactivated</td></tr>
+              <tr><td>DELETE_BOARD</td><td>User deleted a mural</td></tr>
+              <tr><td>DELETE_BOARD_MEMBER</td><td>A member has been removed from a mural</td></tr>
+              <tr><td>DELETE_ORG_MEMBER</td><td>User removed another user from the workspace</td></tr>
+              <tr><td>DELETE_ORGANIZATION</td><td>A Workspace has been deleted</td></tr>
+              <tr><td>DELETE_ROOM</td><td>A Room has been deleted</td></tr>
+              <tr><td>DELETE_ROOM_MEMBER</td><td>User removed another user from a room</td></tr>
+              <tr><td>DELETE_TEMPLATE</td><td>A Template has been deleted</td></tr>
+              <tr><td>DEVICE_REGISTERED</td><td>Surface Hub has been enrolled into the workspace(s) account</td></tr>
+              <tr><td>END_VOTING_SESSION</td><td>Voting session has been completed by the user</td></tr>
+              <tr><td>ENQUEUE_WIDGET</td><td>A new Widget has been created from the mobile web app</td></tr>
+              <tr><td>FAILED_LOGIN_CAPTCHA_ERROR</td><td>A user missed the captcha verification on login</td></tr>
+              <tr><td>FAILED_LOGIN_IDP_RESTRICTION</td><td>A user tried to login with an account blocked by idp</td></tr>
+              <tr><td>FAILED_LOGIN_INVALID_PASSWORD</td><td>A user tried to login with an invalid password</td></tr>
+              <tr><td>FAILED_LOGIN_USER_NOT_FOUND</td><td>A user tried to login with a non-existant profile</td></tr>
+              <tr><td>FORGOT_PASSWORD</td><td>A forgot password email was sent</td></tr>
+              <tr><td>GENERATE_ROOM_INVITE_LINK</td><td>A user generated a room invite link </td></tr>
+              <tr><td>GENERATE_TEAM_INVITE_LINK</td><td>A user generated a workspace invite link</td></tr>
+              <tr><td>IMPERSONATE_USER</td><td>A user account has been impersonated</td></tr>
+              <tr><td>INVITE_MEMBER</td><td>User invited another user</td></tr>
+              <tr><td>MAKE_MEMBER</td><td>A member that was invited by email (without an existing mural account) has redeemed the invitation</td></tr>
+              <tr><td>MURAL_UPGRADED</td><td>[legacy] User upgraded (automactically) to new mural version</td></tr>
+              <tr><td>PUSH_TO_HUB</td><td>User pushed a mural to a Microsoft Surface Hub</td></tr>
+              <tr><td>REMOVE_BOARD_FROM_ROOM</td><td>A mural has been deleted from a room </td></tr>
+              <tr><td>REMOVE_ROOM_INVITE_LINK</td><td>Room invite link has been removed</td></tr>
+              <tr><td>REMOVE_TEAM_INVITE_LINK</td><td>Workspace invite link has been removed</td></tr>
+              <tr><td>SEEN_BOARD</td><td>User opened a mural</td></tr>
+              <tr><td>SEEN_BOARD</td><td>A mural has been accessed</td></tr>
+              <tr><td>SEEN_CHAT</td><td>User opened the in-mural chat window</td></tr>
+              <tr><td>SOFT_LIMIT_USER_CORRECTED</td><td>A worksapce that was exceeding its user quota, corrected it</td></tr>
+              <tr><td>SOFT_LIMIT_USER_HIT</td><td>A worksapce is currently exceeding its user quota</td></tr>
+              <tr><td>START_VOTING_SESSION</td><td>User started in-mural voting session</td></tr>
+              <tr><td>STRIPE_CHARGE_FAILED</td><td>A stripe charge has couldn't be credited into the account</td></tr>
+              <tr><td>STRIPE_CHARGE_REFUNDED</td><td>A stripe charge has been refunded </td></tr>
+              <tr><td>STRIPE_CHARGE_SUCCEEDED</td><td>A stripe charge has been successfully credited into the account</td></tr>
+              <tr><td>STRIPE_CUSTOMER_CARD_CREATED</td><td>A new credit card has been attached to the account</td></tr>
+              <tr><td>STRIPE_CUSTOMER_CARD_DELETED</td><td>An existing credit card has been removed from the account</td></tr>
+              <tr><td>STRIPE_CUSTOMER_CARD_UPDATED</td><td>An existing credit card has been update on the account</td></tr>
+              <tr><td>STRIPE_CUSTOMER_CREATED</td><td>A new paying customer has been created</td></tr>
+              <tr><td>STRIPE_CUSTOMER_DISCOUNT_CREATED</td><td>A new discout has been applied to the an account </td></tr>
+              <tr><td>STRIPE_CUSTOMER_SUBSCRIPTION_CREATED</td><td>A new subscription to a credit-card plan has been attached to the account</td></tr>
+              <tr><td>STRIPE_CUSTOMER_SUBSCRIPTION_DELETED</td><td>A new subscription to a credit-card plan has been removed to the account</td></tr>
+              <tr><td>STRIPE_CUSTOMER_SUBSCRIPTION_UPDATED</td><td>A new subscription to a credit-card plan has been updated on the account</td></tr>
+              <tr><td>STRIPE_CUSTOMER_UPDATED</td><td>Customer details has been updated on the acconut</td></tr>
+              <tr><td>STRIPE_INVOICE_CREATED</td><td>A new invoice has been created</td></tr>
+              <tr><td>STRIPE_INVOICE_PAYMENT_FAILED</td><td>An invoice payment cannot be completed</td></tr>
+              <tr><td>STRIPE_INVOICE_PAYMENT_SUCCEEDED</td><td>An invoice payment successfuly completed</td></tr>
+              <tr><td>STRIPE_INVOICE_UPDATED</td><td>An invoice has been updated</td></tr>
+              <tr><td>STRIPE_INVOICEITEM_CREATED</td><td>A new invoice line has been created</td></tr>
+              <tr><td>STRIPE_INVOICEITEM_UPDATED</td><td>An existing invoice line has been updated</td></tr>
+              <tr><td>UPDATE</td><td>[deprecated] A widget has been updated within a mural </td></tr>
+              <tr><td>UPDATE_ACTIVITY</td><td>A new activity entry has been created</td></tr>
+              <tr><td>UPDATE_BOARD_LINK</td><td>An existing mural link has been updated</td></tr>
+              <tr><td>UPDATE_BOARD_MEMBER</td><td>An existing mural member permissions have been updated</td></tr>
+              <tr><td>UPDATE_MURAL_PROPERTY</td><td>A mural property has been updated (title, description)</td></tr>
+              <tr><td>UPDATE_ORG_MEMBER</td><td>An workspace mural member permissions have been updated</td></tr>
+              <tr><td>UPDATE_ORGANIZATION</td><td>A workspace property has been updated (VAT, Name, bililngEmail)</td></tr>
+              <tr><td>UPDATE_PASSWORD</td><td>A user changed its password thru the "Reset Password" email/link</td></tr>
+              <tr><td>UPDATE_PROFILE</td><td>An existing user profile has been updated (name, surname, etc)</td></tr>
+              <tr><td>UPDATE_ROOM</td><td>An existing room property has been updated (title, description)</td></tr>
+              <tr><td>UPDATE_ROOM_MEMBER</td><td>An room member permissions have been updated</td></tr>
+              <tr><td>UPDATE_TEMPLATE_PROPERTY</td><td>An existing template property has been updated</td></tr>
+              <tr><td>UPDATE_WIDGET</td><td>A widget has been updated within a mural </td></tr>
+              <tr><td>VOTE</td><td>A user casted a vote a widget within an existing mural</td></tr>
+            </tbody>
+          </table>
+        </details>
+            
+      operationId: createUsersActivityRequest
+      requestBody:
+        description: >-
+            Parameters to limit the scope of the request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersActivityRequest'
+      responses:
+        '202':
+          description: Request accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          links:
+            GetTaskById:
+              operationId: getTask
+              parameters:
+                taskId: '$response.body#/id'
+              description: >
+                The `id` value returned in the response can be used as
+                the `userId` parameter in `GET /tasks/{taskId}`.
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Origin:
+              schema:
+                  type: "string"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-amazon-apigateway-integration:
+        requestParameters:
+          integration.request.header.x-api-key: method.request.header.x-api-key
+        responses:
+          default:
+            statusCode: '202'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods : "'*'"
+              method.response.header.Access-Control-Allow-Origin : "'*'"
+        uri: 'http://${integration_uri}/users-activity-requests'
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: http
+      x-amazon-apigateway-api-key-source: HEADER   
+    options:
+      summary: CORS support
+      description: |
+        Enable CORS by returning correct headers
+      tags:
+        - CORS
+      x-amazon-apigateway-integration:
+        type: mock
+        requestTemplates:
+          application/json: |
+            {
+              "statusCode" : 200
+            }
+        responses:
+          "default":
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods : "'*'"
+              method.response.header.Access-Control-Allow-Origin : "'*'"
+            responseTemplates:
+              application/json: |
+                {}
+      responses:
+        '200':
+          description: Default response for CORS method
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Origin:
+              schema:
+                  type: "string"
+  '/tasks/{taskId}':
+    parameters:
+      - $ref: '#/components/parameters/key-header'
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      security:
+        - apiKey: []
+      tags:
+        - task
+      summary: Gets the current status of a task
+      description: Gets the current status of a task. If there is a result to be downloaded the downloadLink will point to it.
+        
+        Download Links are signed and have en expiration tiem of 1 hour.
+      operationId: getTask
+      responses:
+        '200':
+          description: A task
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Origin:
+              schema:
+                  type: "string"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-amazon-apigateway-integration:
+        requestParameters:
+          integration.request.header.x-api-key: method.request.header.x-api-key
+          integration.request.path.taskId: method.request.path.taskId
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods : "'*'"
+              method.response.header.Access-Control-Allow-Origin : "'*'"
+        uri: 'http://${integration_uri}/tasks/{taskId}'
+        passthroughBehavior: when_no_match
+        httpMethod: GET
+        type: http
+      x-amazon-apigateway-api-key-source: HEADER
+    options:
+      summary: CORS support
+      description: |
+        Enable CORS by returning correct headers
+      tags:
+        - CORS
+      x-amazon-apigateway-integration:
+        type: mock
+        requestTemplates:
+          application/json: |
+            {
+              "statusCode" : 200
+            }
+        responses:
+          "default":
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods : "'*'"
+              method.response.header.Access-Control-Allow-Origin : "'*'"
+            responseTemplates:
+              application/json: |
+                {}
+      responses:
+        200:
+          description: Default response for CORS method
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Origin:
+              schema:
+                  type: "string"
+components:
+  schemas:
+
+    UsersActivityRequest:
+      type: object
+      properties:
+        usersEmails:
+          description: List of emails correspoding to the users whos data is being retrieved. There is maximum of 100 emails per request.
+          type: array
+          items:
+            type: string
+            format: email
+            maxItems: 100
+          example:
+            - 'john@doe.com'
+            - 'jane@doe.com'
+        from:
+          description: From UTC date and time to use as filter.
+          type: string
+          format: datetime
+          example: '2018-02-01'
+        to:
+          description: To UTC date and time to user as filter.
+          type: string
+          format: datetime
+          example: '2018-12-31'
+        aggregation:
+          description: >-
+            Optional. Type of aggregation to use, if any.
+             * `none` - No aggregation. The same as not having an aggregation parameter.
+             * `count` - Aggregate by user, counting the total number of actions in the selected period of time.
+          type: string
+          enum:
+            - none
+            - count
+          example: count 
+      required:
+        - from
+        - to
+        
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - success
+            - running
+            - error
+        message:
+          type: string
+          example: Use the download link to get the results
+        downloadLink:
+          description: Link to download results (if applies)
+          type: string
+          format: uri
+          example: 'https://downloads.mural.co/download?id=13021082342930984092390823409829'
+          
+      required:
+        - id
+        - status
+
+    Error:
+      description: Details regarding an error response from the API.
+      properties:
+        error:
+          description: 'Short, human readable, description of the error'
+          example: Age must be between 18 and 90
+          type: string
+      required:
+        - error
+      type: object
+
+  parameters:
+    session-header:
+        in: header
+        name: x-mural-session-id
+        description: ID used to track the user session
+        required: false
+        schema:
+          type: string
+
+    key-header:
+        in: header
+        name: x-api-key
+        description: API Key
+        required: false
+        schema:
+          type: string
+          
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  
+    BadRequest:
+      description: Request invalid or malformed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  
+    ServerError:
+      description: API error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+            
+  securitySchemes:
+   apiKey:
+     type: apiKey
+     in: header
+     name: x-api-key

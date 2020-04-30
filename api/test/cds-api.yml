@@ -3,25 +3,25 @@ info:
   title: Mural User Activity API
   description: >-
     The Mural's **User Activity API** is organized around **REST**. 
-  
+
     The API uses HTTP response codes to indicate API errors. The API supports cross-origin resource sharing. 
-    
-    
+
+
     **JSON** is returned by all API responses, including errors.
 
 
     All calls to this API's methods require an API key that will be provided by Mural's IT team. The key must be included as a **x-api-key** header.<br/><br/>
-    The API key is issue to a customer and allows access to only said company data.<br/> <b>Customers are responsible to ensure the security of the API key.</b> 
+    The API key is issue to a customer and allows access to only said company data.<br/> <b>Customers are responsible to ensure the security of the API key.</b>
   version: 0.0.1
   x-logo:
-    url: 'https://mural.co/static/images/brand/mural-animated-1.gif'
-    href: 'http://mural.co'
+    url: "https://assets-global.website-files.com/5ddd9c3f2186308353fe682d/5e6ec192a2ae97caeb30f98f_mural-logo.svg"
+    href: "http://mural.co"
 servers:
   - url: https://cds.mural.co
 paths:
-  '/users-activity-requests':
+  "/users-activity-requests":
     parameters:
-      - $ref: '#/components/parameters/key-header'
+      - $ref: "#/components/parameters/key-header"
     post:
       security:
         - apiKey: []
@@ -34,12 +34,12 @@ paths:
         <br/>
         Requests are limited to a period of **30 days**.
         <br/>
-        
+
         Results will be available for download as a .csv file once the task is completed for a period of **1 hour, then the download link will expire**.
-        
+
         <br/>
         <br/>
-        
+
         <details>
           <summary>
             <b>Output file format description</b>
@@ -112,9 +112,9 @@ paths:
             </tbody>
           </table>
         </details>
-        
+
         <br/>
-        
+
         <details>
           <summary>
             <b>List of available actions.</b>
@@ -208,28 +208,28 @@ paths:
             </tbody>
           </table>
         </details>
-            
+
       operationId: createUsersActivityRequest
       requestBody:
         description: >-
-            Parameters to limit the scope of the request
+          Parameters to limit the scope of the request
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UsersActivityRequest'
+              $ref: "#/components/schemas/UsersActivityRequest"
       responses:
-        '202':
+        "202":
           description: Request accepted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Task'
+                $ref: "#/components/schemas/Task"
           links:
             GetTaskById:
               operationId: getTask
               parameters:
-                taskId: '$response.body#/id'
+                taskId: "$response.body#/id"
               description: >
                 The `id` value returned in the response can be used as
                 the `userId` parameter in `GET /tasks/{taskId}`.
@@ -242,28 +242,28 @@ paths:
                 type: "string"
             Access-Control-Allow-Origin:
               schema:
-                  type: "string"
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '500':
-          $ref: '#/components/responses/ServerError'
+                type: "string"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/ServerError"
       x-amazon-apigateway-integration:
         requestParameters:
           integration.request.header.x-api-key: method.request.header.x-api-key
         responses:
           default:
-            statusCode: '202'
+            statusCode: "202"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Methods : "'*'"
-              method.response.header.Access-Control-Allow-Origin : "'*'"
-        uri: 'http://${integration_uri}/users-activity-requests'
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        uri: "http://${integration_uri}/users-activity-requests"
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: http
-      x-amazon-apigateway-api-key-source: HEADER   
+      x-amazon-apigateway-api-key-source: HEADER
     options:
       summary: CORS support
       description: |
@@ -281,14 +281,14 @@ paths:
           "default":
             statusCode: "200"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Methods : "'*'"
-              method.response.header.Access-Control-Allow-Origin : "'*'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
             responseTemplates:
               application/json: |
                 {}
       responses:
-        '200':
+        "200":
           description: Default response for CORS method
           headers:
             Access-Control-Allow-Headers:
@@ -299,10 +299,10 @@ paths:
                 type: "string"
             Access-Control-Allow-Origin:
               schema:
-                  type: "string"
-  '/tasks/{taskId}':
+                type: "string"
+  "/tasks/{taskId}":
     parameters:
-      - $ref: '#/components/parameters/key-header'
+      - $ref: "#/components/parameters/key-header"
       - in: path
         name: taskId
         required: true
@@ -315,19 +315,20 @@ paths:
       tags:
         - task
       summary: Gets the current status of a task
-      description: Gets the current status of a task. If there is a result to be downloaded the downloadLink will point to it.
-        
+      description:
+        Gets the current status of a task. If there is a result to be downloaded the downloadLink will point to it.
+
         Download Links are signed and have en expiration tiem of 1 hour.
       operationId: getTask
       responses:
-        '200':
+        "200":
           description: A task
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Task'
+                  $ref: "#/components/schemas/Task"
           headers:
             Access-Control-Allow-Headers:
               schema:
@@ -337,25 +338,25 @@ paths:
                 type: "string"
             Access-Control-Allow-Origin:
               schema:
-                  type: "string"
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '500':
-          $ref: '#/components/responses/ServerError'
+                type: "string"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/ServerError"
       x-amazon-apigateway-integration:
         requestParameters:
           integration.request.header.x-api-key: method.request.header.x-api-key
           integration.request.path.taskId: method.request.path.taskId
         responses:
           default:
-            statusCode: '200'
+            statusCode: "200"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Methods : "'*'"
-              method.response.header.Access-Control-Allow-Origin : "'*'"
-        uri: 'http://${integration_uri}/tasks/{taskId}'
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        uri: "http://${integration_uri}/tasks/{taskId}"
         passthroughBehavior: when_no_match
         httpMethod: GET
         type: http
@@ -377,9 +378,9 @@ paths:
           "default":
             statusCode: "200"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Methods : "'*'"
-              method.response.header.Access-Control-Allow-Origin : "'*'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
             responseTemplates:
               application/json: |
                 {}
@@ -395,10 +396,9 @@ paths:
                 type: "string"
             Access-Control-Allow-Origin:
               schema:
-                  type: "string"
+                type: "string"
 components:
   schemas:
-
     UsersActivityRequest:
       type: object
       properties:
@@ -410,18 +410,18 @@ components:
             format: email
             maxItems: 100
           example:
-            - 'john@doe.com'
-            - 'jane@doe.com'
+            - "john@doe.com"
+            - "jane@doe.com"
         from:
           description: From UTC date and time to use as filter.
           type: string
           format: datetime
-          example: '2018-02-01'
+          example: "2018-02-01"
         to:
           description: To UTC date and time to user as filter.
           type: string
           format: datetime
-          example: '2018-12-31'
+          example: "2018-12-31"
         aggregation:
           description: >-
             Optional. Type of aggregation to use, if any.
@@ -431,11 +431,11 @@ components:
           enum:
             - none
             - count
-          example: count 
+          example: count
       required:
         - from
         - to
-        
+
     Task:
       type: object
       properties:
@@ -455,8 +455,8 @@ components:
           description: Link to download results (if applies)
           type: string
           format: uri
-          example: 'https://downloads.mural.co/download?id=13021082342930984092390823409829'
-          
+          example: "https://downloads.mural.co/download?id=13021082342930984092390823409829"
+
       required:
         - id
         - status
@@ -465,7 +465,7 @@ components:
       description: Details regarding an error response from the API.
       properties:
         error:
-          description: 'Short, human readable, description of the error'
+          description: "Short, human readable, description of the error"
           example: Age must be between 18 and 90
           type: string
       required:
@@ -474,52 +474,52 @@ components:
 
   parameters:
     session-header:
-        in: header
-        name: x-mural-session-id
-        description: ID used to track the user session
-        required: false
-        schema:
-          type: string
+      in: header
+      name: x-mural-session-id
+      description: ID used to track the user session
+      required: false
+      schema:
+        type: string
 
     key-header:
-        in: header
-        name: x-api-key
-        description: API Key
-        required: false
-        schema:
-          type: string
-          
+      in: header
+      name: x-api-key
+      description: API Key
+      required: false
+      schema:
+        type: string
+
   responses:
     NotFound:
       description: The specified resource was not found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
 
     Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-  
+            $ref: "#/components/schemas/Error"
+
     BadRequest:
       description: Request invalid or malformed
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-  
+            $ref: "#/components/schemas/Error"
+
     ServerError:
       description: API error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-            
+            $ref: "#/components/schemas/Error"
+
   securitySchemes:
-   apiKey:
-     type: apiKey
-     in: header
-     name: x-api-key
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-api-key

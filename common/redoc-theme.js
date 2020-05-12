@@ -1,11 +1,104 @@
 const custom_redoc_theme = {
+  spacing: {
+    unit: 5,
+    sectionHorizontal: ({ spacing }) => spacing.unit * 6,
+    sectionVertical: ({ spacing }) => spacing.unit * 1.2,
+  },
+  typography: {
+    fontSize: '16px',
+    lineHeight: '1.4em',
+    fontWeightRegular: '400',
+    fontWeightBold: '700',
+    fontWeightLight: '300',
+    fontFamily: 'Roboto, sans-serif',
+    smoothing: 'antialiased',
+    optimizeSpeed: true,
+    headings: {
+      lineHeight: '1.2em',
+    },
+    code: {
+      fontSize: '14px',
+      fontFamily: 'Courier, monospace',
+      color: '#e53935',
+      backgroundColor: 'rgba(38, 50, 56, 0.05)',
+      wrap: false,
+    },
+    links: {
+      color: ({ colors }) => colors.primary.main,
+      visited: ({ typography }) => typography.links.color,
+    },
+  },
+  logo: {
+    gutter: '0px',
+  },
+  logo: {
+    gutter: '0px',
+  },
+  rightPanel: {
+    backgroundColor: '#393939',
+    width: '40%',
+    textColor: '#fafafa',
+  },
+  sidebar: {
+    width: '300px',
+    textColor: '#000000',
+    activeTextColor:  '#ff0066',
+    backgroundColor: '#fafafa',
+    groupItems: {
+      textTransform: 'uppercase',
+    },
+    level1Items: {
+      textTransform: 'none',
+    },
+    arrow: {
+      size: '1.2em',
+      color:  '#2f2f2f',
+    },
+  },
   colors: {
     primary: {
-      main: "#999999",
+      main: '#ff0066',
+    },
+    success: {
+      main: '#309E17',
+    },
+    warning: {
+      main: '#ffa500',
+      contrastText: '#ffffff',
+    },
+    error: {
+      main: '#DD0011',
+    },
+    gray: {
+      50: '#FAFAFA',
+      100: '#F5F5F5',
+    },
+    text: {
+      primary: '#2f2f2f',
+    },
+    border: {
+      dark: 'rgba(0,0,0, 0.1)',
+      light: '#ffffff',
+    },
+    responses: {
+      info: {
+        color: '#87ceeb',
+      },
+    },
+    http: {
+      get: '#6bbd5b',
+      post: '#248fb2',
+      put: '#9b708b',
+      options: '#d3ca12',
+      patch: '#e09d43',
+      delete: '#e27a7a',
+      basic: '#999',
+      link: '#31bbb6',
+      head: '#c167e4',
     },
   },
 };
-
+​
 /*
 {
   spacing: {

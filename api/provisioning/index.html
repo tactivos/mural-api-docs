@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MURAL Provisioning API Reference</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
+      rel="stylesheet"
+    />
+    ​
+    <!--
+    ReDoc doesn't change outer page styles
+    -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        margin: 0px;
+      }
+      div .api-content h1 {
+        padding-top: 38px;
+        padding-bottom: 0px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+        margin-bottom: -8px;
+      }
+      div .api-content h2 {
+        padding-top: 30px;
+        padding-bottom: 0px;
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+      }
+      div .api-content h3 {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+      }
+      div .redoc-wrap {
+        background-color: white;
+      }
+      div .menu-content {
+        padding-bottom: 0px;
+        background-color: white;
+      }
+      div .menu-content label {
+        background-color: white;
+      }
+      div .scrollbar-container {
+        padding: 20px;
+      }
+      div .menu-content input {
+        margin-top: 30px;
+        margin-left: 38px;
+        padding-left: 25px;
+        padding-right: 20px;
+        font-family: "Roboto", sans-serif;
+        color: rgba(0, 0, 0, 0.7);
+        font-size: 16px;
+        font-weight: 400;
+        border-color: rgba(0, 0, 0, 0.3);
+        width: 220px;
+      }
+      div .menu-content .search-icon {
+        margin-top: 30px;
+        margin-left: 20px;
+        filter: brightness(380%);
+      }
+      div .menu-content i {
+        margin-top: 30px;
+        margin-right: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="redoc-container"></div>
+    <!-- <redoc
+      spec-url="https://raw.githubusercontent.com/tactivos/mural-api-docs/master/api/cds/cds-api.yml"
+      theme="{ colors: { primary: { main: '#fafafa' } } }"
+      color-primary-main="#fafafa"
+    ></redoc> -->
+    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/gh/tactivos/mural-api-docs/common/redoc-theme.js"
+    ></script>
+  </body>
+  <script>
+    Redoc.init(
+      "https://raw.githubusercontent.com/tactivos/mural-api-docs/master/api/provisioning/provisioning-api.yml",
+      {
+        scrollYOffset: 50,
+        theme: custom_redoc_theme,
+      },
+      document.getElementById("redoc-container")
+    );
+  </script>
+</html>

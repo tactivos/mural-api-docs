@@ -61,8 +61,7 @@ paths:
       operationId: unsuspendUser
       x-code-samples:
         - lang: 'Curl'
-          source: |
-            "curl -X PUT -H \"authorization: apikey $apiKey\" -H \"Content-Type: application/json\" -d '{\"email\": \"user@example.com\"}' \"https://app.mural.co/api/v0/provisioning/users/unsuspend\""
+          source: "curl -X PUT -H \"authorization: apikey $apiKey\" -H \"Content-Type: application/json\" -d '{\"email\": \"user@example.com\"}' \"https://app.mural.co/api/v0/provisioning/users/unsuspend\""
       requestBody:
         required: true
         content:

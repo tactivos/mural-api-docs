@@ -8,7 +8,7 @@ info:
 
     **JSON** is returned by all API responses, including errors.
 
-    Base path: https://app.mural.co/api/v0
+    Base path: https://app.mural.co/api
   version: 0.0.1
   x-logo:
     url: "https://app.mural.co/static/images/new-logo.svg"
@@ -20,7 +20,7 @@ servers:
       version:
         default: v0
 paths:
-  "/provisioning/users/suspend":
+  "/v0/provisioning/users/suspend":
     put:
       security:
         - apiKey: []
@@ -44,12 +44,12 @@ paths:
           description: Success
         "401":
           $ref: "#/components/responses/Unauthorized"
-        "400":
+        "404":
           $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/ServerError"
 
-  "/provisioning/users/unsuspend":
+  "/v0/provisioning/users/unsuspend":
     put:
       security:
         - apiKey: []
@@ -75,8 +75,10 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "400":
           $ref: "#/components/responses/BadRequest"
-        "500":
-          $ref: "#/components/responses/ServerError"
+      x-code-samples:
+        - lang: 'Curl'
+          source: |
+            curl -X PUT -H "authorization: apikey $apiKey" -H "Content-Type: application/json" -d '{"email": "user@example.com"}' "https://app.mural.co/api/v0/provisioning/users/unsuspend"
 
 components:
   schemas:
@@ -85,7 +87,7 @@ components:
       properties:
         error:
           description: "Short, human readable, description of the error"
-          example: Age must be between 18 and 90
+          example: error message
           type: string
       required:
         - error
@@ -126,5 +128,5 @@ components:
       name: Authorization
       in: header
       description: >
-        Prefix the value with \"apikey\" to indicate the custom authorization type.
+        Prefix the value with `\"apikey\"` to indicate the custom authorization type.
         The key can be created by a company admin by going to https://app.mural.co/

@@ -62,7 +62,7 @@ paths:
       x-code-samples:
         - lang: curl
           source: |
-          curl -X PUT -H "authorization: apikey $apiKey" -H "Content-Type: application/json" -d '{"email": "user@example.com"}' "https://app.mural.co/api/v0/provisioning/users/unsuspend"
+            curl -X PUT -H "authorization: apikey $apiKey" -H "Content-Type: application/json" -d '{"email": "user@example.com"}' "https://app.mural.co/api/v0/provisioning/users/unsuspend"
       requestBody:
         required: true
         content:

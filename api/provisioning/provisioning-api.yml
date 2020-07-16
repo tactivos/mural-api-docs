@@ -60,9 +60,10 @@ paths:
         Unsuspend a user account based on the user's email address
       operationId: unsuspendUser
       x-code-samples:
-        - lang: curl
-          source: |
-            curl -X PUT -H "authorization: apikey $apiKey" -H "Content-Type: application/json" -d '{"email": "user@example.com"}' "https://app.mural.co/api/v0/provisioning/users/unsuspend"
+        - lang: Curl
+          source: "curl -X PUT -H \"authorization: apikey yourApiKey\"\
+            \ -H \"Content-Type: application/json\" -d '{\n    \"email\": \"user@example.com\"\
+            \    }' \"https://app.mural.co/api/v0/provisioning/users/unsuspend\""
       requestBody:
         required: true
         content:
